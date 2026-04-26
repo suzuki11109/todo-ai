@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TodoAI - Smart Todo App</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✅</text></svg>">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Auth Pages -->
+        <div id="auth-container" class="auth-container">
+            <!-- Login Form -->
+            <div id="login-form" class="auth-form active">
+                <div class="form-header">
+                    <div class="logo">✅ TodoAI</div>
+                    <h1>Welcome Back</h1>
+                    <p class="subtitle">Sign in to manage your tasks</p>
+                </div>
+                <form id="login-form-element">
+                    <div class="form-group">
+                        <label for="login-username">Username</label>
+                        <input type="text" id="login-username" name="username" required placeholder="Enter your username">
+                    </div>
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <input type="password" id="login-password" name="password" required placeholder="Enter your password">
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <span class="btn-text">Sign In</span>
+                        <span class="spinner"></span>
+                    </button>
+                    <div class="form-footer">
+                        <p>Don't have an account? <a href="#" id="show-register">Create one</a></p>
+                    </div>
+                </form>
+            </div>
+
+            <!-- Register Form -->
+            <div id="register-form" class="auth-form">
+                <div class="form-header">
+                    <div class="logo">✅ TodoAI</div>
+                    <h1>Create Account</h1>
+                    <p class="subtitle">Start organizing your tasks</p>
+                </div>
+                <form id="register-form-element">
+                    <div class="form-group">
+                        <label for="register-username">Username</label>
+                        <input type="text" id="register-username" name="username" required minlength="3" placeholder="Choose a username">
+                        <small>3-50 characters, letters and numbers only</small>
+                    </div>
+                    <div class="form-group">
+                        <label for="register-email">Email</label>
+                        <input type="email" id="register-email" name="email" required placeholder="Enter your email">
+                    </div>
+                    <div class="form-group">
+                        <label for="register-password">Password</label>
+                        <input type="password" id="register-password" name="password" required minlength="8" placeholder="Create a password">
+                        <small>Minimum 8 characters</small>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-block">
+                        <span class="btn-text">Create Account</span>
+                        <span class="spinner"></span>
+                    </button>
+                    <div class="form-footer">
+                        <p>Already have an account? <a href="#" id="show-login">Sign in</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Main App Container (hidden until login) -->
+        <div id="main-app" class="main-app hidden">
+            <!-- Header -->
+            <header class="app-header">
+                <div class="header-content">
+                    <div class="logo">✅ TodoAI</div>
+                    <div class="user-info">
+                        <span id="username-display"></span>
+                        <button id="logout-btn" class="btn btn-sm btn-secondary">Logout</button>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Content -->
+            <main class="main-content">
+                <!-- Stats Overview -->
+                <section class="stats-section">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-value" id="stat-total">0</div>
+                            <div class="stat-label">Total Tasks</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="stat-pending">0</div>
+                            <div class="stat-label">Pending</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="stat-completed">0</div>
+                            <div class="stat-label">Completed</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-value" id="stat-overdue">0</div>
+                            <div class="stat-label">Overdue</div>
+                        </div>
+                    </div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="completion-progress"></div>
+                    </div>
+                    <div class="progress-label">
+                        <span id="completion-text">0% completed</span>
+                    </div>
+                </section>
+
+                <!-- Quick Actions -->
+                <section class="quick-actions">
+                    <button id="show-today-btn" class="action-chip">
+                        <span>📅</span> Today
+                    </button>
+                    <button id="show-overdue-btn" class="action-chip">
+                        <span>⚠️</span> Overdue
+                    </button>
+                    <button id="show-all-btn" class="action-chip active">
+                        <span>📋</span> All Tasks
+                    </button>
+                </section>
+
+                <!-- Add Todo Form -->
+                <section class="add-todo-section">
+                    <form id="add-todo-form" class="add-todo-form">
+                        <div class="input-group">
+                            <input type="text" id="todo-title" placeholder="What needs to be done?" required>
+                            <select id="todo-priority" class="priority-select">
+                                <option value="1">🔴 High</option>
+                                <option value="2" selected>🟡 Medium</option>
+                                <option value="3">🟢 Low</option>
+                            </select>
+                            <button type="submit" class="btn btn-add">
+                                <span>+</span>
+                            </button>
+                        </div>
+                        <div class="todo-details" id="todo-details" style="display: none;">
+                            <div class="form-group">
+                                <label>Due Date</label>
+                                <input type="datetime-local" id="todo-due-date">
+                            </div>
+                            <div class="form-group">
+                                <label>Notes</label>
+                                <textarea id="todo-notes" placeholder="Add notes..."></textarea>
+                            </div>
+                            <div class="form-actions">
+                                <button type="button" id="cancel-todo-btn" class="btn btn-secondary">Cancel</button>
+                                <button type="submit" class="btn btn-primary">Add Task</button>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+
+                <!-- Filter & Sort -->
+                <section class="filter-section">
+                    <div class="filter-bar">
+                        <div class="filter-group">
+                            <label>Filter:</label>
+                            <select id="status-filter" class="filter-select">
+                                <option value="all">All</option>
+                                <option value="pending">Pending</option>
+                                <option value="completed">Completed</option>
+                            </select>
+                        </div>
+                        <div class="filter-group">
+                            <label>Sort by:</label>
+                            <select id="sort-select" class="filter-select">
+                                <option value="priority">Priority</option>
+                                <option value="due-date">Due Date</option>
+                                <option value="created">Created</option>
+                            </select>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Todo List -->
+                <section class="todos-section">
+                    <div id="todos-container" class="todos-list">
+                        <!-- Todos will be rendered here -->
+                    </div>
+                    <div id="empty-state" class="empty-state">
+                        <div class="empty-icon">📝</div>
+                        <h3>No tasks yet</h3>
+                        <p>Add your first task above to get started!</p>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <!-- Toast Notifications -->
+        <div id="toast-container" class="toast-container"></div>
+    </div>
+
+    <!-- Load JavaScript -->
+    <script src="js/auth.js"></script>
+    <script src="js/todos.js"></script>
+    <script src="js/app.js"></script>
+</body>
+</html>

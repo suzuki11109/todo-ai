@@ -1,0 +1,56 @@
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+docker-compose.yml
+docker-compose.prod.yml
+
+# Makefile
+Makefile
+
+# Documentation
+README.md
+docs/
+AGENTS.md
+prompts.md
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+
+# Temporary files
+tmp/
+temp/
+*.log
+*.test
+
+# Test coverage
+coverage.out
+coverage.html
+
+# Environment
+.env
+.env.local
+
+# Secrets
+secrets/
+
+# OS
+.DS_Store
+
+# Modules cache (will be downloaded in builder stage)
+bin/
+vendor/
+
+# Static assets (included in image)
+# static/ (not excluded)
+
+# Migration files are copied in Dockerfile
+# migrations/ (keep this one, the Dockerfile copies them)
+
+# Air config
+.air.toml

@@ -1,0 +1,75 @@
+# Binaries
+bin/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+
+# Test binary, built with `go test -c`
+*.test
+
+# Output of the go coverage tool
+*.out
+coverage.html
+coverage.out
+
+# Dependency directories
+vendor/
+
+# Go workspace file
+go.work
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# Secrets
+secrets/
+
+# Logs
+logs/
+*.log
+
+# Temporary files
+tmp/
+temp/
+
+# Build artifacts
+dist/
+build/
+
+# Docker volumes
+docker-data/
+
+# SSL certificates
+ssl/
+*.pem
+*.key
+*.crt
+
+# Air temp directory
+tmp/
+
+# Goose migration lock
+*.lock
+
+# PostgreSQL data (local dev)
+postgres_data/
+
+# Node modules (if we add any later)
+node_modules/
+
+# Static file caches
+.cache/
